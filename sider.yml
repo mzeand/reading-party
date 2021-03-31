@@ -1,0 +1,31 @@
+# This is a YAML file. See <https://yaml.org>.
+linter:
+  golangci_lint:
+    target: golang-interpreterbook/src
+    #config: golangci.yml
+    disable:
+      - govet
+      - unused
+    disable-all: false
+    enable:
+      - golint
+      - gosec
+    fast: true
+    no-config: false
+    presets: complexity
+    skip-dirs:
+      - src/external_libs
+    skip-dirs-use-default: true
+    skip-files:
+      - ".*\\.my\\.go$"
+      - lib/bad.go
+    tests: false
+    uniq-by-line: true
+  remark_lint:
+    ext: md,markdown
+    use:
+      - remark-lint-file-extension
+      - remark-lint-no-heading-punctuation
+
+ignore:
+  - "images/**"
