@@ -4,6 +4,7 @@ linter:
     root_dir: "golang-interpreterbook/src/"
     #target: golang-interpreterbook/src
     #config: golangci.yml
+    import_path: "golang-interpreterbook/src"
     disable:
       - govet
       - unused
