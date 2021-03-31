@@ -1,4 +1,6 @@
 linter:
+  gometalinter:
+    import_path: github.com/mzeand/practice/golang-interpreterbook
   golangci_lint:
     root_dir: "golang-interpreterbook/"
     disable:
