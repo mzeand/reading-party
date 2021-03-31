@@ -1,10 +1,9 @@
 # This is a YAML file. See <https://yaml.org>.
 linter:
   golangci_lint:
-    root_dir: "golang-interpreterbook/src/"
+    root_dir: "golang-interpreterbook/"
     #target: golang-interpreterbook/src
     #config: golangci.yml
-    import_path: "golang-interpreterbook/src"
     disable:
       - govet
       - unused
