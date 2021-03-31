@@ -1,7 +1,7 @@
 # This is a YAML file. See <https://yaml.org>.
 linter:
   golangci_lint:
-    target: golang-interpreterbook/src
+    target: golang-interpreterbook/src/*/**
     #config: golangci.yml
     disable:
       - govet
