@@ -1,6 +1,8 @@
 linter:
   golangci_lint:
-    root_dir: "golang-interpreterbook/"
+    target:
+      - "golang-interpreterbook"
+    config: golangci.yml
     disable:
       - govet
       - unused
@@ -17,8 +19,9 @@ linter:
     skip-files:
       - ".*\\.my\\.go$"
       - lib/bad.go
-    tests: true
+    tests: false
     uniq-by-line: true
+
   remark_lint:
     ext: md,markdown
     use:
