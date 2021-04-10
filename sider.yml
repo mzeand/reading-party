@@ -2,7 +2,7 @@ linter:
   golangci_lint:
     target:
       - "golang-interpreterbook"
-    config: golangci.yml
+    config: .golangci.yml
     disable:
       - govet
       - unused
