@@ -16,7 +16,7 @@ func Eval(node ast.Node) object.Object {
 
 	// 文
 	case *ast.Program:
-		return evalStetments(node.Statements)
+		return evalProgram(node)
 
 	case *ast.ExpressionStatement:
 		return Eval(node.Expression)
@@ -38,10 +38,15 @@ func Eval(node ast.Node) object.Object {
 		return nativeBoolToBooleanObject(node.Value)
 
 	case *ast.BlockStatement:
-		return evalStetments(node.Statements)
+		return evalBlockStatement(node)
 
 	case *ast.IfExpression:
 		return evalIfExpression(node)
+
+	case *ast.ReturnStatement:
+		val := Eval(node.ReturnValue)
+		return &object.ReturnValue{Value: val}
+
 	}
 
 	return nil
@@ -59,6 +64,10 @@ func evalStetments(stmts []ast.Statement) object.Object {
 
 	for _, statement := range stmts {
 		result = Eval(statement)
+
+		if returnValue, ok := result.(*object.ReturnValue); ok {
+			return returnValue.Value
+		}
 	}
 
 	return result
@@ -152,6 +161,34 @@ func evalIfExpression(ie *ast.IfExpression) object.Object {
 	} else {
 		return NULL
 	}
+}
+
+func evalProgram(program *ast.Program) object.Object {
+	var result object.Object
+
+	for _, statement := range program.Statements {
+		result = Eval(statement)
+
+		if returnValue, ok := result.(*object.ReturnValue); ok {
+			return returnValue.Value
+		}
+	}
+
+	return result
+}
+
+func evalBlockStatement(block *ast.BlockStatement) object.Object {
+	var result object.Object
+
+	for _, statement := range block.Statements {
+		result = Eval(statement)
+
+		if result != nil && result.Type() == object.RETURN_VALUE_OBJ {
+			return result
+		}
+	}
+
+	return result
 }
 
 func isTruthy(obj object.Object) bool {
