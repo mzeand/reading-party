@@ -6,7 +6,7 @@ func NewEnvironment() *Environment {
 	return &Environment{store: s}
 }
 
-//
+// Environment is struct
 type Environment struct {
 	store map[string]Object
 }
