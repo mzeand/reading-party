@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"monkey/ast"
-	"monkey/asty"
 	"strings"
 	)
 
