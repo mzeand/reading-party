@@ -42,6 +42,10 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETURN"
+
+	//
+	LBRACKET = "["
+	RBRACKET = "]"
 )
 
 type Token struct {
