@@ -360,6 +360,22 @@ func TestBuiltinFunctions(t *testing.T) {
 		{`len("hello world")`, 11},
 		{`len(1)`, "argument to `len` not supported, got INTEGER"},
 		{`len("one", "two")`, "wrong number of arguments. got=2, want=1"},
+		{`let a = [1, 2, 3]; first(a)`, 1},
+		{`let a = [1, 2, 3, 4]; rest(a, 1)`, `wrong number of arguments. got=2, want=1`},
+		{`let a = 1; first(a)`, "argument to `first` must be ARRAY, got INTEGER"},
+		{`let a = [1, 2, 3]; last(a)`, 3},
+		{`let a = [1, 2, 3, 4]; last(a, 1)`, `wrong number of arguments. got=2, want=1`},
+		{`let a = 1; last(a)`, "argument to `last` must be ARRAY, got INTEGER"},
+		{`let a = [1, 2, 3, 4]; rest(a)`, []int{2, 3, 4}},
+		{`let a = [1, 2, 3, 4]; rest(rest(a))`, []int{3, 4}},
+		{`let a = [1, 2, 3, 4]; rest(rest(rest(a)))`, []int{4}},
+		{`let a = [1, 2, 3, 4]; rest(rest(rest(rest(a))))`, []int{}},
+		{`let a = [1, 2, 3, 4]; rest(rest(rest(rest(rest(a)))))`, NULL},
+		{`let a = [1, 2, 3, 4]; rest(a, 1)`, `wrong number of arguments. got=2, want=1`},
+		{`let a = 1; rest(a)`, "argument to `rest` must be ARRAY, got INTEGER"},
+		{`let a = [1, 2, 3, 4]; push(a, 5)`, []int{1, 2, 3, 4, 5}},
+		{`let a = [1, 2, 3, 4]; push(a)`, `wrong number of arguments. got=1, want=2`},
+		{`let a = 1; push(a, 5)`, "argument to `push` must be ARRAY, got INTEGER"},
 	}
 
 	for _, tt := range tests {
