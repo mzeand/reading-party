@@ -1,5 +1,5 @@
-# practice
+# golang reading party
 
-## Golang
+## Reading list
 
 [Writing An Interpreter In Go](golang-interpreterbook)
