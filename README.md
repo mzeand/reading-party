@@ -1,5 +1,6 @@
-# golang reading party
+# Golang Reading Party
 
 ## Reading list
 
-[Writing An Interpreter In Go](golang-interpreterbook)
+1. [Writing An Interpreter In Go](golang-interpreterbook)
+2. [Learning Systems Programming in Go](learning-systems-programming-in-go)
