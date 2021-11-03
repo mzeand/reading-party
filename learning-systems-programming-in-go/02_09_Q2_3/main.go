@@ -3,6 +3,7 @@ package main
 import (
 	"compress/gzip"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -13,27 +14,24 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	source := map[string]string{
-		"Hello": "Wirld",
+		"name_en": "Hello World",
+		"name_ja": "こんにちは 世界",
 	}
 
-	encoder := json.NewEncoder(os.Stdout)
+	gzipw := gzip.NewWriter(w)
+	defer gzipw.Close()
+
+	encoder := json.NewEncoder(io.MultiWriter(gzipw, os.Stdout))
 	encoder.SetIndent("", "     ")
 	encoder.Encode(source)
-
-	file, err := os.Create("text.json.gz")
-	if err != nil {
-		panic(err)
-	}
-
-	gzipw := gzip.NewWriter(file)
-	gzipw.Header.Name = "text.json"
 	gzipw.Flush()
-	io.MultiWriter(w, gzipw)
-	gzipw.Close()
 
 }
 
 func main() {
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
