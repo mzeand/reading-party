@@ -12,11 +12,11 @@ func dumpChunk(chunk io.Reader) {
 	binary.Read(chunk, binary.BigEndian, &length)
 	buffer := make([]byte, 4)
 	chunk.Read(buffer)
-	fmt.Printf("chank '%v' (%d bytes)\n", string(buffer), length)
+	fmt.Printf("chunk '%v' (%d bytes)\n", string(buffer), length)
 }
 
-func rearChanks(file *os.File) []io.Reader {
-	var chanks []io.Reader
+func readChunks(file *os.File) []io.Reader {
+	var chunks []io.Reader
 
 	file.Seek(8, 0)
 	var offset int64 = 8
@@ -27,10 +27,10 @@ func rearChanks(file *os.File) []io.Reader {
 		if err == io.EOF {
 			break
 		}
-		chanks = append(chanks, io.NewSectionReader(file, offset, int64(length)+12))
+		chunks = append(chunks, io.NewSectionReader(file, offset, int64(length)+12))
 		offset, _ = file.Seek(int64(length+8), 1)
 	}
-	return chanks
+	return chunks
 }
 
 func main() {
@@ -39,7 +39,7 @@ func main() {
 		panic(err)
 	}
 	defer file.Close()
-	chunks := rearChanks(file)
+	chunks := readChunks(file)
 	for _, chunk := range chunks {
 		dumpChunk(chunk)
 	}
