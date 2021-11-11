@@ -2,6 +2,7 @@ package main
 
 import (
 	"archive/zip"
+	"io"
 	"os"
 	"strings"
 )
@@ -29,16 +30,8 @@ func main() {
 
 	// 文字列を読み込む
 	reader := strings.NewReader(source)
-	buf := make([]byte, reader.Size())
-	_, err = reader.Read(buf)
-	if err != nil {
-		panic(err)
-	}
 
 	// zipに書き込む
-	_, err = f.Write(buf)
-	if err != nil {
-		panic(err)
-	}
+	io.Copy(f, reader)
 
 }
