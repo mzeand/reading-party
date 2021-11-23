@@ -1,4 +1,4 @@
-# Golang Reading Party
+# Reading Party
 
 ## Reading list
 
