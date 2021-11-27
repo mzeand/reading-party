@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: foo
+  labels:
+    role: myrole
+spec:
+  securityContext:
+    runAsNonRoot: true
+  containers:
+    - name: foo
+      image: busybox
+      command:
+        - sleep
+        - "120"

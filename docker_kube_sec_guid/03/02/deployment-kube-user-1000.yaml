@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: foo
+  labels:
+    role: myrole
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+  containers:
+    - name: foo
+      image: busybox
+      command:
+        - sleep
+        - "120"
