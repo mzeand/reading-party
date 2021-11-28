@@ -1,0 +1,4 @@
+FROM alpine:3.10
+# -D: Don't assign a password
+RUN adduser -D exampleuser
+USER exampleuser
